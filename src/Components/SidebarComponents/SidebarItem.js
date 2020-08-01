@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './SidebarItem.css'
+import                           './SidebarItem.css'
 
 export default class SidebarItem extends Component {
     render() {

@@ -4,6 +4,7 @@ import Header from './Components/Header';
 import Sidebar from './Components/Sidebar';
 import ContentBody from './Components/ContentBody';
 import $ from 'jquery';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends React.Component {
   constructor(props) {
@@ -14,19 +15,18 @@ class App extends React.Component {
     }
   }
 
-  async componentDidMount() {
-    
-  }
-
   render() {
     return (
-      <div className="app">
-        <Header comapanyName='company.'/>
-        <div className='app__belowHeader'>
-          <Sidebar />
-          <ContentBody />
+      
+        <div className="app">
+          <Header comapanyName='company.'/>
+          <div className='app__belowHeader'>
+          <Router>
+            <Sidebar />  
+            <ContentBody />
+          </Router>
+          </div>
         </div>
-      </div>
     );
   }
 }
