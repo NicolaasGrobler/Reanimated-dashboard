@@ -1,0 +1,14 @@
+.app {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    /* overflow: hidden; */
+}
+
+.app__belowHeader {
+    display: flex;
+    flex: 1;
+
+    height: calc(100% - 60px);
+}

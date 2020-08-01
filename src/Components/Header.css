@@ -1,0 +1,24 @@
+.header {
+    background-color: #2374AB;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__logo {
+    margin-left: 15px;
+    color: white;
+}
+
+.header__profilePicture {
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 0.001px rgba(255, 255, 255, 0) solid;
+
+    transition-duration: 0.3s;
+}
+
+.header__profilePicture:hover {
+    border: 2px white solid;
+}

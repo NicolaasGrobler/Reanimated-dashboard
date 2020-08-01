@@ -1,0 +1,17 @@
+.RoundImage {
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 25px;
+    /* border: 2px white solid; */
+}
+
+.RoundImage img{
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    .RoundImage {
+        margin-right: 15px;
+    }
+}
+

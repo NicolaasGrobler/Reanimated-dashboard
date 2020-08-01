@@ -1,0 +1,75 @@
+.EventCard {
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+}
+
+.EventCardContent {
+    height: 100%;
+    position: relative;
+    padding: 30px;
+
+    transition: padding 0.5s;
+}
+
+.EventOverlay {
+    background-color: black;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    z-index: 3;
+    opacity: 0;
+
+    transition: 0.5s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.EventOverlay:hover {
+    opacity: 0.7;
+}
+
+.EventEditButton {
+    color: white;
+    font-size: 30px;
+}
+
+.EventCardContent:hover::after {
+    visibility: visible;
+}
+
+.EventImageContainer {
+    display: flex;
+}
+
+.EventImage {
+    background-color: black;
+    width: 100%;
+    height: 300px;
+    border-radius: 15px;
+    background-size: cover;
+    background-position: center;
+
+    transition: height 0.5s;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+.EventCardTitle {
+    padding-top: 10px;
+}
+
+@media only screen and (max-width: 430px) {
+    .EventCardContent {
+        padding: 20px;
+    }
+
+    .EventImage {
+        height: 200px;
+    }
+  }

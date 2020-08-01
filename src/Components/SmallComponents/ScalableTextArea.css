@@ -1,0 +1,19 @@
+.ScalableTextArea > textarea {
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 20px;
+    background-color: white;
+    width: 100%;
+
+    height: auto;
+    resize: none;
+}
+
+.ScalableTextArea > label {
+    font-size: 25px;
+}

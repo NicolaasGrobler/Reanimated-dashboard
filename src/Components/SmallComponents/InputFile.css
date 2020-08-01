@@ -1,0 +1,42 @@
+.InputFileTitle {
+    font-size: 25px;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	/* position: absolute; */
+	z-index: -1;
+}
+
+.inputFileLabel {
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 20px;
+    background-color: #2374AB;
+    color: white;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+.inputFileLabel:hover {
+    background-color: tomato;
+}
+
+.myLabel {
+    font-size: 25px;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+}
+
+.inputfile {
+    margin-top: 20px;
+}
