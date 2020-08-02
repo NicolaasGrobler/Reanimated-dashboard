@@ -43,15 +43,21 @@ export default class EditEventTab extends React.Component {
     }
 
     async saveChanges(){
+        let eventId = window.location.href.split('?')[1].split('t')[1];
+
         let postData = {
             eventName: $('#eventNameInput').val(),
             eventDate: $('#eventDateInput').val(),
             eventPlace: $('#eventPlaceInput').val(),
-            eventURL: $('#eventImageUrlInput').val()
+            eventURL: $('#eventImageUrlInput').val(),
+            eventTime: $('#eventTimeInput').val(),
+            eventDescription: $('#descriptionBox').val(),
+            eventContactPerson: $('#eventContactPersonInput').val(),
+            eventContactDetails: $('#eventContactDetailsInput').val(),
         }
 
-        let result = await fetch('http://localhost:4545/createEvent', {
-            method: 'POST',
+        let result = await fetch(`http://localhost:4545/updateEvent/${eventId}`, {
+            method: 'PUT',
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json'
