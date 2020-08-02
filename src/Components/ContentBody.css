@@ -70,7 +70,7 @@ button:hover {
     padding: 0px;
 }
 
-.AddEventButton {
+.EventButton {
     background-color: #2374AB;
     font-size: 20px;
     margin-left: 10px;
@@ -84,7 +84,7 @@ button:hover {
     transition: 0.5s;
 }
 
-.AddEventButton:hover {
+.EventButton:hover {
     background-color: tomato;
 }
 

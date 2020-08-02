@@ -5,7 +5,7 @@ import './ScalableInputController.css';
 export default class ScalableInputController extends Component {
     componentDidMount() {
         let nameInputs = document.getElementsByClassName('scalableInput');
-
+        
         Object.keys(nameInputs).forEach(key => {
             $('#hide').text(nameInputs[key].placeholder);
             $(nameInputs[key]).width($('#hide').width());
