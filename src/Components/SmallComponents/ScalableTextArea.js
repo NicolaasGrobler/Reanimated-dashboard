@@ -12,6 +12,15 @@ export default class ScalableTextArea extends Component {
         $(e.target).css('height', descriptionBoxScrollHeight);
     }
 
+    // componentDidMount() {
+    //     $('#descriptionBox').css('height', 'auto');
+
+    //     let descriptionBoxScrollHeight = document.getElementById('descriptionBox').scrollHeight;
+
+    //     document.getElementById('descriptionBox').style.height = descriptionBoxScrollHeight + ;
+    //     // $('#descriptionBox').css('height', descriptionBoxScrollHeight);
+    // }
+
     render() {
         return (
             <div className='ScalableTextArea'>

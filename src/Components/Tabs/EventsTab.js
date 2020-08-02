@@ -23,14 +23,10 @@ export default class EventsTab extends React.Component {
     }   
 
     editEvent(e){
-        console.log(e.currentTarget.id);
-
         window.location.replace(`http://localhost:3000/EditEvent?id=${e.currentTarget.id}`);
     }
 
     render(){
-        console.log(this.state.eventData);
-
         let dynamicEvents = [];
 
         for (let i = 0; i < this.state.eventData.length; i++){

@@ -63,6 +63,7 @@ export default class EditEventTab extends React.Component {
     }
 
     componentDidUpdate() {
+        //Scale Inputs
         $('#eventNameInput').val(this.state.eventName);
         $('#eventPlaceInput').val(this.state.eventPlace);
         $('#eventDateInput').val(this.state.eventDate);
@@ -77,6 +78,11 @@ export default class EditEventTab extends React.Component {
             $('#hide').text(nameInputs[key].value);
             $(nameInputs[key]).width($('#hide').width());
         });
+
+        //Scale TextArea
+        $('#descriptionBox').css('height', 'auto');
+        let descriptionBoxScrollHeight = document.getElementById('descriptionBox').scrollHeight;
+        document.getElementById('descriptionBox').style.height = descriptionBoxScrollHeight + 'px';
     }
 
     render(){

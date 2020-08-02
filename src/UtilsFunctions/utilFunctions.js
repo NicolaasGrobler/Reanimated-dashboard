@@ -43,5 +43,5 @@ export function getDateString(str){
             break;
     }
 
-    return str[8] + str[9] + ' ' + month;
+    return str[8] + str[9] + ' ' + month + ' ' +  str[0] + str[1] + str[2] + str[3];
 }
