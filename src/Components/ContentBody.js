@@ -38,7 +38,7 @@ export default class ContentBody extends Component {
                     </Route>
 
                     <Route path='/EditEvent'>
-                        <EditEventTab />
+                        <EditEventTab togglePopup={this.props.togglePopup}/>
                     </Route>
 
                     <Route path='/'>

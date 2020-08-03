@@ -8,7 +8,8 @@ export default class EventsTab extends React.Component {
         super(props);
 
         this.state = {
-            eventData: ''
+            eventData: '',
+            deleteEvent: false
         }
     }
 
@@ -38,7 +39,6 @@ export default class EventsTab extends React.Component {
         return (
             <div>
                 <Link to='/AddEvent'><button className='EventButton'>Add Event</button></Link>
-                <button className='EventButton'>Delete Event</button>
 
                 <div className='widgetContainer'>
                     {dynamicEvents}

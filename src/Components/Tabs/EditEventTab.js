@@ -4,6 +4,7 @@ import ScalableInput            from '../SmallComponents/ScalableInput';
 import ScalableTextArea         from '../SmallComponents/ScalableTextArea';
 import { Link, Redirect  }      from "react-router-dom";
 import $                        from 'jquery';
+import PopupModal               from '../PopupModal';
 
 export default class EditEventTab extends React.Component {
     constructor(props){
@@ -20,6 +21,7 @@ export default class EditEventTab extends React.Component {
             eventDescription: '',
             eventContactPerson: '',
             eventContactDetails: '',
+            popup: true
         }
     } 
 
@@ -42,7 +44,7 @@ export default class EditEventTab extends React.Component {
         });
     }
 
-    async saveChanges(){
+    async saveChanges() {
         let eventId = window.location.href.split('?')[1].split('t')[1];
 
         let postData = {
@@ -106,7 +108,8 @@ export default class EditEventTab extends React.Component {
                     <ScalableInput labelName='Contact Details' type='text' inputId={'eventContactDetailsInput'}/>
                     <ScalableInput labelName='Event Image Url' type='text' inputId={'eventImageUrlInput'}/>
 
-                    <button onClick={this.saveChanges}>Save Changes</button>
+                    <button className='EventButton' onClick={this.saveChanges}>Save Changes</button>
+                    <button className='EventButton' onClick={this.props.togglePopup}>Delete Event</button>
                 </div>
             </div>
         );

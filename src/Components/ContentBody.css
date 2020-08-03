@@ -11,6 +11,10 @@
     transition: padding 0.5s;
 }
 
+.contentBody > .popupOverlay{
+    padding: 0px;
+}
+
 .widgetContainer {
     display: flex;
     flex: 1;

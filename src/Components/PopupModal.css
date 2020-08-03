@@ -1,0 +1,93 @@
+.popupOverlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.52);
+
+    z-index: 10;
+
+    opacity: 0;
+}
+
+.popupModal {
+    box-sizing: border-box;
+    position: fixed;
+    width: 50%;
+    min-width: 300px;
+    height: auto;
+    min-height: 00px;
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px;
+
+    transition: padding 0.7s;
+    /* transition: height 2s; */
+}
+
+.popupModal > p{
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+}
+
+.popupModalInput {
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.popupModalInput > input{
+    box-sizing: border-box;
+    outline: none;
+    background-color: rgb(233, 233, 233);
+    font-size: 20px;
+    text-align: center;
+    border-radius: 15px;
+    border: none;
+    padding: 10px;
+
+    border: 3px rgb(233, 233, 233) solid;
+
+    transition: border-color 0.7s;
+
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.popupModalButtons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.popupModalButtons > button{
+    width: 100%;
+    padding: 10px;
+    flex: 1;
+    min-width: 200px;
+    margin: 20px 10px;
+    margin-bottom: 0;
+}
+
+.popupErrorMsg {
+    padding-top: 10px;
+    color: tomato;
+    text-align: center;
+
+    opacity: 0;
+    height: 00px;
+}
+
+@media only screen and (max-width: 700px) {
+    .popupModal {
+        padding: 15px;
+    }
+
+    .popupModalInput > input {
+        margin: 0;
+    }
+
+    .popupModalButtons > button {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+  }
