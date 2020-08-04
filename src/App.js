@@ -14,15 +14,15 @@ class App extends React.Component {
     this.state = { 
       sidebarCollapsed: false,
       popup: false,
-      popupElem: null
+      popupElem: null,
+      popupToShow: null
     }
 
     this.togglePopup = this.togglePopup.bind(this);
+    this.setPopup = this.setPopup.bind(this);
   }
 
   async togglePopup() {
-    console.log('Hello')
-
     if (await this.state.popup) {
       $('.popupOverlay').animate({opacity: 0}, 300, async () => {
         await this.setState({
@@ -33,9 +33,17 @@ class App extends React.Component {
     } else {
       await this.setState({
         popup: true,
-        popupElem: <PopupModal togglePopup={this.togglePopup}/>
+        popupElem: this.state.popupToShow
       });
     }
+  }
+
+  async setPopup(popupElem) {
+    await this.setState({
+      popupToShow: popupElem
+    });
+
+    console.log('Done!');
   }
 
   render() {
@@ -43,11 +51,11 @@ class App extends React.Component {
       <div className="app">
         {this.state.popup ? this.state.popupElem : null}
 
-        <Header comapanyName='company.'/>
+        <Header comapanyName={process.env.REACT_APP_COMPANY_NAME}/>
         <div className='app__belowHeader'>
         <Router>
           <Sidebar />  
-          <ContentBody togglePopup={this.togglePopup}/>
+          <ContentBody togglePopup={this.togglePopup} setPopup={this.setPopup}/>
         </Router>
         </div>
       </div>
