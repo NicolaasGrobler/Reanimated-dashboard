@@ -1,3 +1,5 @@
+import $                        from 'jquery';
+
 export function getDateString(str){ 
     let month = str[5] + str[6];
 
@@ -44,4 +46,22 @@ export function getDateString(str){
     }
 
     return str[8] + str[9] + ' ' + month + ' ' +  str[0] + str[1] + str[2] + str[3];
+}
+
+export function validateInput(inputArr) {
+    let valid = true;
+    let element;
+
+    for (let input of inputArr) {
+        if ($(`#${input}`).attr('data-isInputValid') == 'false'){
+            valid = false;
+            element = document.querySelector(`#${input}`);
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+            break;
+        }
+    }
+    return valid;
 }

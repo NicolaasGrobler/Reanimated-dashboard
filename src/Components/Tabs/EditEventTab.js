@@ -5,6 +5,9 @@ import ScalableTextArea         from '../SmallComponents/ScalableTextArea';
 import { Link, Redirect  }      from "react-router-dom";
 import $                        from 'jquery';
 import PopupModal               from '../PopupModal';
+import { validateInput }        from '../../UtilsFunctions/utilFunctions';
+
+const inputs = ['eventNameInput', 'eventPlaceInput', 'eventDateInput', 'eventTimeInput', 'eventContactPersonInput', 'eventContactDetailsInput', 'eventImageUrlInput'];
 
 export default class EditEventTab extends React.Component {
     constructor(props){
@@ -52,13 +55,16 @@ export default class EditEventTab extends React.Component {
     }
 
     async selectSavePopup() {
-        await this.setState({
-            popupElem: <PopupModal title={'Are you sure you want to save the changes?'} keyword={'save'} togglePopup={this.props.togglePopup} continueEvent={this.saveChanges}/>
-        });
 
-        await this.props.setPopup(this.state.popupElem);
-
-        this.props.togglePopup();
+        if(validateInput(inputs)){
+            await this.setState({
+                popupElem: <PopupModal title={'Are you sure you want to save the changes?'} keyword={'save'} togglePopup={this.props.togglePopup} continueEvent={this.saveChanges}/>
+            });
+    
+            await this.props.setPopup(this.state.popupElem);
+    
+            this.props.togglePopup();
+        }
     }
 
     async selectDeletePopup() {
@@ -143,14 +149,14 @@ export default class EditEventTab extends React.Component {
                 <div className='widget'><h1>Editing an event</h1></div>
                 <div className='widget'>
                     <ScalableInputController />
-                    <ScalableInput labelName='Event Name' type='text' inputId={'eventNameInput'}/>
-                    <ScalableInput labelName='Place' type='text' inputId={'eventPlaceInput'}/>
-                    <ScalableInput labelName='Date' type='date' inputId={'eventDateInput'}/>
-                    <ScalableInput labelName='Time' type='time' inputId={'eventTimeInput'}/>
+                    <ScalableInput labelName='Event Name' type='text' inputId={'eventNameInput'} validationType='normal'/>
+                    <ScalableInput labelName='Place' type='text' inputId={'eventPlaceInput'} validationType='normal'/>
+                    <ScalableInput labelName='Date' type='date' inputId={'eventDateInput'} validationType='normal'/>
+                    <ScalableInput labelName='Time' type='time' inputId={'eventTimeInput'} validationType='normal'/>
                     <ScalableTextArea labelName='Description'/>
-                    <ScalableInput labelName='Contact Person' type='text' inputId={'eventContactPersonInput'}/>
-                    <ScalableInput labelName='Contact Details' type='text' inputId={'eventContactDetailsInput'}/>
-                    <ScalableInput labelName='Event Image Url' type='text' inputId={'eventImageUrlInput'}/>
+                    <ScalableInput labelName='Contact Person' type='text' inputId={'eventContactPersonInput'} validationType='normal'/>
+                    <ScalableInput labelName='Contact Details' type='text' inputId={'eventContactDetailsInput'} validationType='cellNumber'/>
+                    <ScalableInput labelName='Event Image Url' type='text' inputId={'eventImageUrlInput'} validationType='normal'/>
 
                     <button className='EventButton' onClick={this.selectSavePopup}>Save Changes</button>
                     <button className='EventButton' onClick={this.selectDeletePopup}>Delete Event</button>

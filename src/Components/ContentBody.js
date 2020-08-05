@@ -52,7 +52,18 @@ export default class ContentBody extends Component {
 
 function Accounts() {
     return (
-        <div>I am the Accounts page</div>
+        <div>
+            <div className='widget'><h1>Input Validation Test</h1></div>
+            <div className='widget'>
+                <ScalableInputController />
+                <ScalableInput labelName='Name' validationType='normal'/>
+                <ScalableInput labelName='Surname - optional'/>
+                <ScalableInput labelName='Email' validationType='email'/>
+                <ScalableInput labelName='Mobile Number' validationType='cellNumber'/>
+                <ScalableInput labelName='Date' type='date' validationType='normal'/>
+                <ScalableInput labelName='Time' type='time' validationType='normal'/>
+            </div>
+        </div>
     );
 }
 
