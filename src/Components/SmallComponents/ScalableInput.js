@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './ScalableInput.css';
 import $ from 'jquery';
+import { realTimeValidation } from '../../UtilsFunctions/utilFunctions';
 
 export default class ScalableInput extends Component {
     constructor(props) {
@@ -28,39 +29,10 @@ export default class ScalableInput extends Component {
             });
         }
 
+        $(e.target).attr('data-changesMade', true);
+
         //Realtime validation
-        const validationType = this.props.validationType;
-        switch(true){
-            case (validationType == 'normal'): 
-                if(!(e.target.value.length > 0)){
-                    $(e.target).css('borderColor', 'tomato'); 
-                    $(e.target).attr('data-isInputValid', false);
-                } else {
-                    $(e.target).css('borderColor', 'white'); 
-                    $(e.target).attr('data-isInputValid', true);
-                }
-                break;
-            case (validationType == 'cellNumber'):
-                if((e.target.value.replace(/\s/g, '').length != 10) || !(e.target.value.replace(/\s/g, '').match(/^[0-9]+$/))){
-                    $(e.target).css('borderColor', 'tomato'); 
-                    $(e.target).attr('data-isInputValid', false);
-                } else {
-                    $(e.target).css('borderColor', 'white'); 
-                    $(e.target).attr('data-isInputValid', true);
-                }
-                break; 
-            case (validationType == 'email'):
-                if(!(this.ValidateEmail(e.target.value))){
-                    $(e.target).css('borderColor', 'tomato'); 
-                    $(e.target).attr('data-isInputValid', false);
-                } else {
-                    $(e.target).css('borderColor', 'white'); 
-                    $(e.target).attr('data-isInputValid', true);
-                }
-                break;
-            default:
-                break;
-        }
+        realTimeValidation(e.target, this.props.validationType);
     }
 
     ValidateEmail(mail){
@@ -82,7 +54,7 @@ export default class ScalableInput extends Component {
         return (
             <div className='inputGroup'>
                 <label>{this.props.labelName}</label><br/>
-                <input id={this.props.inputId} type={this.props.type} className={txtClassName} placeholder={this.props.labelName} onChange={(e) => this.changeInputSize(e)} value={this.state.value} data-isInputValid={true}/>
+                <input id={this.props.inputId} type={this.props.type} className={txtClassName} placeholder={this.props.labelName} onChange={(e) => this.changeInputSize(e)} value={this.state.value} data-isInputValid={this.props.emptyFirst ? true : false} data-changesMade={false}/>
             </div>
         )
     }

@@ -55,6 +55,7 @@ export function validateInput(inputArr) {
     for (let input of inputArr) {
         if ($(`#${input}`).attr('data-isInputValid') == 'false'){
             valid = false;
+            $(`#${input}`).css('borderColor', 'tomato');
             element = document.querySelector(`#${input}`);
             element.scrollIntoView({
                 behavior: 'smooth',
@@ -64,4 +65,56 @@ export function validateInput(inputArr) {
         }
     }
     return valid;
+}
+
+export function inputsChanged(inputArr) {
+    let changesMade = false;
+    let element;
+
+    for (let input of inputArr) {
+        if ($(`#${input}`).attr('data-changesMade') == 'true'){
+            changesMade = true;
+            break;
+        }
+    }
+    return changesMade;
+}
+
+export function realTimeValidation(target, validationType) {
+    //Realtime validation
+    switch(true){
+        case (validationType == 'normal'): 
+            if(!(target.value.length > 0)){
+                $(target).css('borderColor', 'tomato'); 
+                $(target).attr('data-isInputValid', false);
+            } else {
+                $(target).css('borderColor', 'white'); 
+                $(target).attr('data-isInputValid', true);
+            }
+            break;
+        case (validationType == 'cellNumber'):
+            if((target.value.replace(/\s/g, '').length != 10) || !(target.value.replace(/\s/g, '').match(/^[0-9]+$/))){
+                $(target).css('borderColor', 'tomato'); 
+                $(target).attr('data-isInputValid', false);
+            } else {
+                $(target).css('borderColor', 'white'); 
+                $(target).attr('data-isInputValid', true);
+            }
+            break; 
+        case (validationType == 'email'):
+            if(!(this.ValidateEmail(target.value))){
+                $(target).css('borderColor', 'tomato'); 
+                $(target).attr('data-isInputValid', false);
+            } else {
+                $(target).css('borderColor', 'white'); 
+                $(target).attr('data-isInputValid', true);
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+export function homeButton() {
+    window.location.replace('http://localhost:3000/')
 }

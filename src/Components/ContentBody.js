@@ -34,7 +34,7 @@ export default class ContentBody extends Component {
                     </Route>
 
                     <Route path='/AddEvent'>
-                        <AddEventTab />
+                        <AddEventTab togglePopup={this.props.togglePopup} setPopup={this.props.setPopup} />
                     </Route>
 
                     <Route path='/EditEvent'>
@@ -42,7 +42,7 @@ export default class ContentBody extends Component {
                     </Route>
 
                     <Route path='/'>
-                        <EventsTab />
+                        <EventsTab/>
                     </Route>
                 </Switch>
             </div>
@@ -51,17 +51,32 @@ export default class ContentBody extends Component {
 }
 
 function Accounts() {
+    async function uploadFile() {
+        console.log('Uploading')
+        let formData = new FormData();
+        let fileField = document.querySelector('#fileUploadField');
+
+        formData.append('file', fileField.files[0]);
+
+        let result = await fetch('http://localhost:4545/uploadFile', {
+            method: 'POST',
+            body: formData
+        }).then((res) => {
+            return res.json();
+        });
+
+        document.querySelector('#filepath').innerHTML = `File path: ${result.filepath}`;
+    }
+
     return (
         <div>
-            <div className='widget'><h1>Input Validation Test</h1></div>
+            <div className='widget'><h1>File upload test</h1></div>
             <div className='widget'>
                 <ScalableInputController />
-                <ScalableInput labelName='Name' validationType='normal'/>
-                <ScalableInput labelName='Surname - optional'/>
-                <ScalableInput labelName='Email' validationType='email'/>
-                <ScalableInput labelName='Mobile Number' validationType='cellNumber'/>
-                <ScalableInput labelName='Date' type='date' validationType='normal'/>
-                <ScalableInput labelName='Time' type='time' validationType='normal'/>
+                <input id='fileUploadField' type='file' name='file'/>
+                <button onClick={uploadFile}>Upload</button>
+
+                <p id='filepath'>File path: </p>
             </div>
         </div>
     );

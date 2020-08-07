@@ -77,8 +77,8 @@ button:hover {
 .EventButton {
     background-color: #2374AB;
     font-size: 20px;
-    margin-left: 10px;
-    margin-top: 20px;
+    margin-right: 10px;
+    margin-top: 0px;
     padding: 10px 15px;
     color: white;
     cursor: pointer;
