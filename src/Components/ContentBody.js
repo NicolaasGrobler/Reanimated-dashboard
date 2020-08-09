@@ -89,8 +89,15 @@ function Meetings() {
 }
 
 function Security() {
+    async function testFunc(imageName) {
+        let result = await fetch(`http://localhost:4545/getImage/pexels-anna-tarazevich-4839732.jpg`);
+        console.log(result);
+    }
+
     return (
-        <div>I am the Security page</div>
+        <div>
+            <img src='http://localhost:4545/getImage/pexels-anna-tarazevich-4839732.jpg'/>
+        </div>
     );
 }
 

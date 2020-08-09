@@ -6,8 +6,9 @@ import { Link, Redirect  }      from "react-router-dom";
 import $                        from 'jquery';
 import { validateInput, homeButton, inputsChanged }        from '../../UtilsFunctions/utilFunctions';
 import PopupModal from '../PopupModal';
+import ImageUploader from '../ImageUploader';
 
-const inputs = ['eventNameInput','descriptionBox', 'eventPlaceInput', 'eventDateInput', 'eventTimeInput', 'eventContactPersonInput', 'eventContactDetailsInput', 'eventImageUrlInput'];
+const inputs = ['eventNameInput','descriptionBox', 'eventPlaceInput', 'eventDateInput', 'eventTimeInput', 'eventContactPersonInput', 'eventContactDetailsInput', 'dropzone', 'fileUploadButton'];
 
 export default class AddEventTab extends React.Component {
     constructor(props){
@@ -20,14 +21,21 @@ export default class AddEventTab extends React.Component {
         this.createEvent = this.createEvent.bind(this);
         this.selectCreateModal = this.selectCreateModal.bind(this);
         this.cancel = this.cancel.bind(this);
+        this.setImageURL = this.setImageURL.bind(this);
     } 
+
+    async setImageURL(imgName) {
+        await this.setState({
+            imgURL: `http://localhost:4545/getImage/${imgName}`
+        });
+    }
 
     async createEvent(){
         let postData = {
             eventName: $('#eventNameInput').val(),
             eventDate: $('#eventDateInput').val(),
             eventPlace: $('#eventPlaceInput').val(),
-            eventURL: $('#eventImageUrlInput').val(),
+            eventURL: this.state.imgURL,
             eventTime: $('#eventTimeInput').val(),
             eventDescription: $('#descriptionBox').val(),
             eventContactPerson: $('#eventContactPersonInput').val(),
@@ -91,7 +99,7 @@ export default class AddEventTab extends React.Component {
                     <ScalableTextArea labelName='Description' validationType='normal'/>
                     <ScalableInput labelName='Contact Person' type='text' inputId={'eventContactPersonInput'} validationType='normal'/>
                     <ScalableInput labelName='Contact Details' type='text' inputId={'eventContactDetailsInput'} validationType='cellNumber'/>
-                    <ScalableInput labelName='Event Image Url' type='text' inputId={'eventImageUrlInput'} validationType='normal'/>
+                    <ImageUploader buttonText='Use photo' setImageURL={(imgName) => this.setImageURL(imgName)}/>
 
                     <button className='EventButton' onClick={this.selectCreateModal}>Create Event</button>
                     <button className='EventButton' onClick={this.cancel}>Cancel</button>

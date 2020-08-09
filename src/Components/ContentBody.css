@@ -31,6 +31,17 @@
     margin-bottom: 15px;
 }
 
+.widgetContainer.components {
+    /* margin-bottom: 15px; */
+    align-items: center;
+}
+
+.widgetContainer.components > .successText{
+    margin-left: 15px;
+    opacity: 0;
+    transition: 0.5s;
+}
+
 .widget {
     margin: 10px;
     padding: 20px;
@@ -50,6 +61,8 @@ button {
     padding-right: 10px;
     font-size: 20px;
     background-color: #2374AB;
+    box-sizing: border-box;
+    border: 2px solid #2374AB;
     color: white;
 
     cursor: pointer;
@@ -62,6 +75,7 @@ button {
 
 button:hover {
     background-color: tomato;
+    border-color: tomato;
 }
 
 .widget.eventContainer {

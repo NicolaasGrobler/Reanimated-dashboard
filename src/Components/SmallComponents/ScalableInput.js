@@ -54,7 +54,7 @@ export default class ScalableInput extends Component {
         return (
             <div className='inputGroup'>
                 <label>{this.props.labelName}</label><br/>
-                <input id={this.props.inputId} type={this.props.type} className={txtClassName} placeholder={this.props.labelName} onChange={(e) => this.changeInputSize(e)} value={this.state.value} data-isInputValid={this.props.emptyFirst ? true : false} data-changesMade={false}/>
+                <input id={this.props.inputId} type={this.props.type} className={txtClassName} placeholder={this.props.placeholder ? this.props.placeholder : this.props.labelName} onChange={(e) => this.changeInputSize(e)} value={this.state.value} data-isInputValid={this.props.emptyFirst ? true : false} data-changesMade={false}/>
             </div>
         )
     }
