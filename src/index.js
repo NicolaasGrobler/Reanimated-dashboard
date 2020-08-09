@@ -4,6 +4,15 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+document.addEventListener('drop', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+});
+document.addEventListener('dragover', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

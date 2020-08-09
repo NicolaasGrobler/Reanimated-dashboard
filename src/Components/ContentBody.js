@@ -9,7 +9,7 @@ import { Switch, Route }        from "react-router-dom";
 import $                        from 'jquery';
 import EventsTab                from './Tabs/EventsTab';
 import AddEventTab              from './Tabs/AddEventTab';
-import EditEventTab              from './Tabs/EditEventTab';
+import EditEventTab             from './Tabs/EditEventTab';
 import                               './ContentBody.css';
 
 export default class ContentBody extends Component {
@@ -51,12 +51,18 @@ export default class ContentBody extends Component {
 }
 
 function Accounts() {
+    let currentFile;
+
+    function triggerFileUpload() {
+        $('#fileUploadField').click();
+    }
+
     async function uploadFile() {
         console.log('Uploading')
         let formData = new FormData();
         let fileField = document.querySelector('#fileUploadField');
 
-        formData.append('file', fileField.files[0]);
+        formData.append('file', currentFile);
 
         let result = await fetch('http://localhost:4545/uploadFile', {
             method: 'POST',
@@ -64,19 +70,47 @@ function Accounts() {
         }).then((res) => {
             return res.json();
         });
+    }
 
-        document.querySelector('#filepath').innerHTML = `File path: ${result.filepath}`;
+    function fileChosen(e) { 
+        if (e.target.files[0]) {
+            let tmppath = URL.createObjectURL(e.target.files[0]);
+            $('.dropzone').css('backgroundImage', 'url(' + tmppath + ')');
+
+            currentFile = e.target.files[0];
+        }
+    }
+
+    function fileDrop(e) {        
+        let files = e.dataTransfer.files;
+        console.log(files);
+
+        let tmppath = URL.createObjectURL(files[0]);
+        $('.dropzone').css('backgroundImage', 'url(' + tmppath + ')');
+
+        currentFile = files[0];
+
+        e.currentTarget.style.borderColor = 'rgb(0, 0, 0)';
     }
 
     return (
         <div>
             <div className='widget'><h1>File upload test</h1></div>
             <div className='widget'>
-                <ScalableInputController />
-                <input id='fileUploadField' type='file' name='file'/>
+                <input id='fileUploadField' type='file' name='file' onChange={(e) => fileChosen(e)}/>
+                <div 
+                    className='dropzone' 
+                    id='dropzone' 
+                    onClick={triggerFileUpload} 
+                    onDrop={(e) => fileDrop(e)} 
+                    onDragEnter={(e) => e.currentTarget.style.borderColor = 'rgb(78, 95, 255)'}
+                    onDragOver={(e) => e.currentTarget.style.borderColor = 'rgb(78, 95, 255)'} 
+                    onDragLeave={(e) => e.currentTarget.style.borderColor = 'rgb(0, 0, 0)'}
+                >
+                    <div className='dropzoneOverlay'></div>
+                    <p>Drop file here or click anywhere in the box to browse</p>
+                </div>
                 <button onClick={uploadFile}>Upload</button>
-
-                <p id='filepath'>File path: </p>
             </div>
         </div>
     );
@@ -84,7 +118,20 @@ function Accounts() {
 
 function Meetings() {
     return (
-        <div>I am the Meetings page</div>
+        <div>
+            <div className='widget'>
+                <h1>I am a widget</h1>
+            </div>
+            <div className='widget'>
+                <ScalableInputController/>
+                <ScalableInput labelName='Test Input' type='text' validationType='normal'/>
+                <ScalableInput labelName='Date Input' type='date' validationType='normal'/>
+                <ScalableInput labelName='Time Input' type='time' validationType='normal'/>
+                <button className='EventButton'>Test Button</button>
+                <button className='EventButton'>Test Button 2</button>
+                <button className='EventButton'>Test Button 3</button>
+            </div>
+        </div>
     );
 }
 
