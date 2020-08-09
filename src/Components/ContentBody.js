@@ -11,6 +11,7 @@ import EventsTab                from './Tabs/EventsTab';
 import AddEventTab              from './Tabs/AddEventTab';
 import EditEventTab             from './Tabs/EditEventTab';
 import                               './ContentBody.css';
+import ImageUploader from './ImageUploader';
 
 export default class ContentBody extends Component {
     render() {
@@ -51,69 +52,21 @@ export default class ContentBody extends Component {
 }
 
 function Accounts() {
-    let currentFile;
-
-    function triggerFileUpload() {
-        $('#fileUploadField').click();
-    }
-
-    async function uploadFile() {
-        console.log('Uploading')
-        let formData = new FormData();
-        let fileField = document.querySelector('#fileUploadField');
-
-        formData.append('file', currentFile);
-
-        let result = await fetch('http://localhost:4545/uploadFile', {
-            method: 'POST',
-            body: formData
-        }).then((res) => {
-            return res.json();
-        });
-    }
-
-    function fileChosen(e) { 
-        if (e.target.files[0]) {
-            let tmppath = URL.createObjectURL(e.target.files[0]);
-            $('.dropzone').css('backgroundImage', 'url(' + tmppath + ')');
-
-            currentFile = e.target.files[0];
-        }
-    }
-
-    function fileDrop(e) {        
-        let files = e.dataTransfer.files;
-        console.log(files);
-
-        let tmppath = URL.createObjectURL(files[0]);
-        $('.dropzone').css('backgroundImage', 'url(' + tmppath + ')');
-
-        currentFile = files[0];
-
-        e.currentTarget.style.borderColor = 'rgb(0, 0, 0)';
-    }
-
     return (
         <div>
-            <div className='widget'><h1>File upload test</h1></div>
-            <div className='widget'>
-                <input id='fileUploadField' type='file' name='file' onChange={(e) => fileChosen(e)}/>
-                <div 
-                    className='dropzone' 
-                    id='dropzone' 
-                    onClick={triggerFileUpload} 
-                    onDrop={(e) => fileDrop(e)} 
-                    onDragEnter={(e) => e.currentTarget.style.borderColor = 'rgb(78, 95, 255)'}
-                    onDragOver={(e) => e.currentTarget.style.borderColor = 'rgb(78, 95, 255)'} 
-                    onDragLeave={(e) => e.currentTarget.style.borderColor = 'rgb(0, 0, 0)'}
-                >
-                    <div className='dropzoneOverlay'></div>
-                    <p>Drop file here or click anywhere in the box to browse</p>
+            <div className='widgetContainer'>
+                <div className='widget'>
+                    <ImageUploader />
                 </div>
-                <button onClick={uploadFile}>Upload</button>
+                <div className='widget'>
+                    <ImageUploader />
+                </div>
+                <div className='widget'>
+                    <ImageUploader />
+                </div>
             </div>
         </div>
-    );
+    )
 }
 
 function Meetings() {
