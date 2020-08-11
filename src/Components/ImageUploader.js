@@ -26,42 +26,6 @@ export default class ImageUploader extends Component {
         this.props.getData(currentFile1, currentName1);
     }
 
-    // async uploadFile() {
-    //     if (currentFile) {
-
-    //         if (fileName) {
-    //             await fetch(`http://localhost:4545/deleteFile/${fileName}`, {
-    //                 method: 'POST'
-    //             });
-    //         }
-
-    //         let formData = new FormData();
-    //         let fileField = document.querySelector('#fileUploadField');
-    
-    //         formData.append('file', currentFile);
-    
-    //         let result = await fetch('http://localhost:4545/uploadFile', {
-    //             method: 'POST',
-    //             body: formData
-    //         }).then((res) => {
-    //             return res.json();
-    //         });
-
-    //         fileURL = result.filepath;
-    //         document.getElementById('fileUploadButton').setAttribute('data-isinputvalid', true);
-    //         document.getElementById('fileUploadButton').style.borderColor = '';
-    //         document.getElementById('fileUploadText').innerText = 'Image Uploaded';
-    //         document.getElementById('fileUploadText').style.opacity = 1;
-
-    //         fileName = result.fileName;
-
-    //         this.props.setImageURL(this.getName());
-    //     } else {
-    //         document.getElementById('fileUploadText').innerText = 'Please choose an image first';
-    //         document.getElementById('fileUploadText').style.opacity = 1;
-    //     }
-    // }
-
     fileChosen(e) { 
         if (e.target.files[0]) {
             console.log(e.target.files[0]);

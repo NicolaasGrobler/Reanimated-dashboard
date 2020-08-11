@@ -25,10 +25,10 @@ export default class Sidebar extends Component {
         return (
             <div className='sidebar'>
                 <Link to='/' className='Link'><SidebarItem name='Events' icon='event' tooltip='Events' active={this.state.activeButton === 'Events' ? true : false} onClick={(e) => this.changeActiveButton(e)}/></Link>
-                <Link to='/Accounts' className='Link'><SidebarItem name='Accounts' icon='account_balance_wallet' active={this.state.activeButton === 'Accounts' ? true : false} onClick={(e) => this.changeActiveButton(e)}/></Link>
+                {/* <Link to='/Accounts' className='Link'><SidebarItem name='Accounts' icon='account_balance_wallet' active={this.state.activeButton === 'Accounts' ? true : false} onClick={(e) => this.changeActiveButton(e)}/></Link>
                 <Link to='/Meetings' className='Link'><SidebarItem name='Meetings' icon='meeting_room' active={this.state.activeButton === 'Meetings' ? true : false} onClick={(e) => this.changeActiveButton(e)}/></Link>
                 <Link to='/Security' className='Link'><SidebarItem name='Security' icon='lock' active={this.state.activeButton === 'Security' ? true : false} onClick={(e) => this.changeActiveButton(e)}/></Link>
-                <Link to='/Users' className='Link'><SidebarItem name='Users' icon='person' active={this.state.activeButton === 'Users' ? true : false} onClick={(e) => this.changeActiveButton(e)}/></Link>
+                <Link to='/Users' className='Link'><SidebarItem name='Users' icon='person' active={this.state.activeButton === 'Users' ? true : false} onClick={(e) => this.changeActiveButton(e)}/></Link> */}
             </div>
     )}
 };
