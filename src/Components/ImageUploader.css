@@ -14,6 +14,8 @@
     background-size: cover;
     background-position: center;
     overflow: hidden;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .dropzone:hover {

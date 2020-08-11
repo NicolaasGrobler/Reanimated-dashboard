@@ -7,10 +7,6 @@ export default class ScalableInput extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            value: this.props.value
-        }
-
         this.changeInputSize = this.changeInputSize.bind(this);
     }
 
@@ -23,13 +19,11 @@ export default class ScalableInput extends Component {
             }
     
             $(e.target).width($('#hide').width());
-
-            this.setState({
-                value: e.target.value
-            });
         }
 
-        $(e.target).attr('data-changesMade', true);
+        
+
+        $(e.target).attr('data-changesmade', true);
 
         //Realtime validation
         realTimeValidation(e.target, this.props.validationType);
@@ -54,7 +48,7 @@ export default class ScalableInput extends Component {
         return (
             <div className='inputGroup'>
                 <label>{this.props.labelName}</label><br/>
-                <input id={this.props.inputId} type={this.props.type} className={txtClassName} placeholder={this.props.placeholder ? this.props.placeholder : this.props.labelName} onChange={(e) => this.changeInputSize(e)} value={this.state.value} data-isInputValid={this.props.emptyFirst ? true : false} data-changesMade={false}/>
+                <input id={this.props.inputId} type={this.props.type} className={txtClassName} placeholder={this.props.placeholder ? this.props.placeholder : this.props.labelName} onChange={(e) => this.changeInputSize(e)} data-isinputvalid={this.props.emptyFirst ? true : false} data-changesmade={false}/>
             </div>
         )
     }

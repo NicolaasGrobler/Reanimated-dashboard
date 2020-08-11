@@ -6,8 +6,9 @@ import { Link, Redirect  }      from "react-router-dom";
 import $                        from 'jquery';
 import PopupModal               from '../PopupModal';
 import { validateInput, homeButton, inputsChanged }        from '../../UtilsFunctions/utilFunctions';
+import ImageUploader from '../ImageUploader';
 
-const inputs = ['eventNameInput','descriptionBox', 'eventPlaceInput', 'eventDateInput', 'eventTimeInput', 'eventContactPersonInput', 'eventContactDetailsInput', 'eventImageUrlInput'];
+const inputs = ['eventNameInput','descriptionBox', 'eventPlaceInput', 'eventDateInput', 'eventTimeInput', 'eventContactPersonInput', 'eventContactDetailsInput'];
 
 export default class EditEventTab extends React.Component {
     constructor(props){
@@ -30,7 +31,17 @@ export default class EditEventTab extends React.Component {
         this.selectDeletePopup = this.selectDeletePopup.bind(this);
         this.selectSavePopup = this.selectSavePopup.bind(this);
         this.Cancel = this.Cancel.bind(this);
+        this.uploadFile = this.uploadFile.bind(this);
+        this.getData = this.getData.bind(this);
+        this.deleteModalEvent = this.deleteModalEvent.bind(this);
     } 
+
+    async getData(currentFile, currentName) {
+        this.setState({
+            currentFile: currentFile,
+            currentName: currentName
+        });
+    }
 
     async componentDidMount() {
         let eventId = window.location.href.split('?')[1].split('t')[1];
@@ -48,11 +59,8 @@ export default class EditEventTab extends React.Component {
             eventContactDetails: fetchedData[0].event_contact_details,
             eventContactPerson: fetchedData[0].event_contact_person,
             eventDescription: fetchedData[0].event_description,
-            eventURL: fetchedData[0].event_img,
+            eventURL: fetchedData[0].event_img
         });
-
-        this.saveChanges = this.saveChanges.bind(this);
-        this.deleteModalEvent = this.deleteModalEvent.bind(this);
     }
 
     async selectSavePopup() {
@@ -93,13 +101,15 @@ export default class EditEventTab extends React.Component {
     }
 
     async saveChanges() {
+        await this.uploadFile();
+
         let eventId = window.location.href.split('?')[1].split('t')[1];
 
         let postData = {
             eventName: $('#eventNameInput').val(),
             eventDate: $('#eventDateInput').val(),
             eventPlace: $('#eventPlaceInput').val(),
-            eventURL: $('#eventImageUrlInput').val(),
+            eventURL: this.state.eventURL,
             eventTime: $('#eventTimeInput').val(),
             eventDescription: $('#descriptionBox').val(),
             eventContactPerson: $('#eventContactPersonInput').val(),
@@ -126,11 +136,46 @@ export default class EditEventTab extends React.Component {
             mode: 'cors'
         });
 
+        let temp = this.state.eventURL;
+        temp = temp.split('/');
+        temp = temp[temp.length - 1];
+
+        await fetch(`http://localhost:4545/deleteFile/${temp}`, {
+            method: 'POST'
+        });
+
         window.location.replace("http://localhost:3000/");
     }
 
+    async uploadFile() {
+        if (this.state.currentFile) {
+
+            if (this.state.currentName) {
+                await fetch(`http://localhost:4545/deleteFile/${this.state.currentName}`, {
+                    method: 'POST'
+                });
+            }
+
+            let formData = new FormData();
+            let fileField = document.querySelector('#fileUploadField');
+    
+            formData.append('file', this.state.currentFile);
+    
+            let result = await fetch('http://localhost:4545/uploadFile', {
+                method: 'POST',
+                body: formData
+            }).then((res) => {
+                return res.json();
+            });
+
+            await this.setState({
+                eventURL: 'http://localhost:4545/getImage/' + result.fileName
+            });
+        }
+    }
+
     async componentDidUpdate() {
-        //Scale Inputs
+        //Scale Inputs        
         if (this.state.firstRender) {
             $('#eventNameInput').val(this.state.eventName);
             $('#eventPlaceInput').val(this.state.eventPlace);
@@ -171,7 +216,7 @@ export default class EditEventTab extends React.Component {
                     <ScalableTextArea labelName='Description' validationType='normal' emptyFirst={true}/>
                     <ScalableInput labelName='Contact Person' type='text' inputId={'eventContactPersonInput'} validationType='normal' emptyFirst={true}/>
                     <ScalableInput labelName='Contact Details' type='text' inputId={'eventContactDetailsInput'} validationType='cellNumber' emptyFirst={true}/>
-                    <ScalableInput labelName='Event Image Url' type='text' inputId={'eventImageUrlInput'} validationType='normal' emptyFirst={true}/>
+                    <ImageUploader buttonText='Use photo' setImageURL={(imgName) => this.setImageURL(imgName)} backgroundImg={this.state.eventURL} buttonIsValid={true} getData={(currentFile,currentName) => this.getData(currentFile, currentName)}/>
 
                     <button className='EventButton' onClick={this.selectSavePopup}>Save Changes</button>
                     <button className='EventButton' onClick={this.selectDeletePopup}>Delete Event</button>

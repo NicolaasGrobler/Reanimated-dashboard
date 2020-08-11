@@ -7,7 +7,7 @@ export default class ScalableTextArea extends Component {
     changeHeight(e) {
 
         $(e.target).css('height', 'auto');
-        $(e.target).attr('data-changesMade', true);
+        $(e.target).attr('data-changesmade', true);
 
         let descriptionBoxScrollHeight = e.target.scrollHeight;
 
@@ -27,7 +27,7 @@ export default class ScalableTextArea extends Component {
         return (
             <div className='ScalableTextArea'>
                 <label>{this.props.labelName}</label><br/>
-                <textarea rows='1' id='descriptionBox' placeholder={this.props.placeholder} onChange={(e) => {this.changeHeight(e)}} data-isInputValid={true} data-changesMade={false}></textarea> 
+                <textarea rows='1' id='descriptionBox' placeholder={this.props.placeholder} onChange={(e) => {this.changeHeight(e)}} data-isinputvalid={true} data-changesmade={false}></textarea> 
             </div>
         )
     }

@@ -53,7 +53,7 @@ export function validateInput(inputArr) {
     let element;
 
     for (let input of inputArr) {
-        if ($(`#${input}`).attr('data-isInputValid') == 'false'){
+        if ($(`#${input}`).attr('data-isinputvalid') == 'false'){
             valid = false;
             $(`#${input}`).css('borderColor', 'tomato');
             element = document.querySelector(`#${input}`);
@@ -72,7 +72,7 @@ export function inputsChanged(inputArr) {
     let element;
 
     for (let input of inputArr) {
-        if ($(`#${input}`).attr('data-changesMade') == 'true'){
+        if ($(`#${input}`).attr('data-changesmade') == 'true'){
             changesMade = true;
             break;
         }
@@ -86,28 +86,28 @@ export function realTimeValidation(target, validationType) {
         case (validationType == 'normal'): 
             if(!(target.value.length > 0)){
                 $(target).css('borderColor', 'tomato'); 
-                $(target).attr('data-isInputValid', false);
+                $(target).attr('data-isinputvalid', false);
             } else {
                 $(target).css('borderColor', 'white'); 
-                $(target).attr('data-isInputValid', true);
+                $(target).attr('data-isinputvalid', true);
             }
             break;
         case (validationType == 'cellNumber'):
             if((target.value.replace(/\s/g, '').length != 10) || !(target.value.replace(/\s/g, '').match(/^[0-9]+$/))){
                 $(target).css('borderColor', 'tomato'); 
-                $(target).attr('data-isInputValid', false);
+                $(target).attr('data-isinputvalid', false);
             } else {
                 $(target).css('borderColor', 'white'); 
-                $(target).attr('data-isInputValid', true);
+                $(target).attr('data-isinputvalid', true);
             }
             break; 
         case (validationType == 'email'):
             if(!(this.ValidateEmail(target.value))){
                 $(target).css('borderColor', 'tomato'); 
-                $(target).attr('data-isInputValid', false);
+                $(target).attr('data-isinputvalid', false);
             } else {
                 $(target).css('borderColor', 'white'); 
-                $(target).attr('data-isInputValid', true);
+                $(target).attr('data-isinputvalid', true);
             }
             break;
         default:

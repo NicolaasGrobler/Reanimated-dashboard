@@ -8,7 +8,7 @@ import { validateInput, homeButton, inputsChanged }        from '../../UtilsFunc
 import PopupModal from '../PopupModal';
 import ImageUploader from '../ImageUploader';
 
-const inputs = ['eventNameInput','descriptionBox', 'eventPlaceInput', 'eventDateInput', 'eventTimeInput', 'eventContactPersonInput', 'eventContactDetailsInput', 'dropzone', 'fileUploadButton'];
+const inputs = ['eventNameInput','descriptionBox', 'eventPlaceInput', 'eventDateInput', 'eventTimeInput', 'eventContactPersonInput', 'eventContactDetailsInput', 'dropzone'];
 
 export default class AddEventTab extends React.Component {
     constructor(props){
@@ -22,6 +22,7 @@ export default class AddEventTab extends React.Component {
         this.selectCreateModal = this.selectCreateModal.bind(this);
         this.cancel = this.cancel.bind(this);
         this.setImageURL = this.setImageURL.bind(this);
+        this.getData = this.getData.bind(this);
     } 
 
     async setImageURL(imgName) {
@@ -31,6 +32,8 @@ export default class AddEventTab extends React.Component {
     }
 
     async createEvent(){
+        await this.uploadFile();
+
         let postData = {
             eventName: $('#eventNameInput').val(),
             eventDate: $('#eventDateInput').val(),
@@ -71,7 +74,7 @@ export default class AddEventTab extends React.Component {
             homeButton();
         } else {
             await this.setState({
-                popupElem: <PopupModal title={`You've completed some fields, are you sure?`} keyword={'yes'} togglePopup={this.props.togglePopup} continueEvent={homeButton}/>
+                popupElem: <PopupModal title={`You've completed some fields, are you sure?`} keyword={'yes'} togglePopup={this.props.togglePopup} continueEvent={this.cancelEvent}/>
             });
     
             await this.props.setPopup(this.state.popupElem);
@@ -84,6 +87,40 @@ export default class AddEventTab extends React.Component {
         $('#descriptionBox').css('height', 'auto');
         let descriptionBoxScrollHeight = document.getElementById('descriptionBox').scrollHeight;
         document.getElementById('descriptionBox').style.height = descriptionBoxScrollHeight + 4 + 'px';
+    }
+
+    async getData(currentFile, currentName) {
+        this.setState({
+            currentFile: currentFile,
+            currentName: currentName
+        });
+    }
+
+    async uploadFile() {
+        if (this.state.currentFile) {
+
+            if (this.state.currentName) {
+                await fetch(`http://localhost:4545/deleteFile/${this.state.currentName}`, {
+                    method: 'POST'
+                });
+            }
+
+            let formData = new FormData();
+            let fileField = document.querySelector('#fileUploadField');
+    
+            formData.append('file', this.state.currentFile);
+    
+            let result = await fetch('http://localhost:4545/uploadFile', {
+                method: 'POST',
+                body: formData
+            }).then((res) => {
+                return res.json();
+            });
+
+            this.state.currentName = result.fileName;
+
+            await this.setImageURL(this.state.currentName);
+        }
     }
 
     render(){
@@ -99,7 +136,7 @@ export default class AddEventTab extends React.Component {
                     <ScalableTextArea labelName='Description' validationType='normal'/>
                     <ScalableInput labelName='Contact Person' type='text' inputId={'eventContactPersonInput'} validationType='normal'/>
                     <ScalableInput labelName='Contact Details' type='text' inputId={'eventContactDetailsInput'} validationType='cellNumber'/>
-                    <ImageUploader buttonText='Use photo' setImageURL={(imgName) => this.setImageURL(imgName)}/>
+                    <ImageUploader getData={(currentFile, currentName) => this.getData(currentFile, currentName)} buttonText='Use photo' setImageURL={(imgName) => this.setImageURL(imgName)}/>
 
                     <button className='EventButton' onClick={this.selectCreateModal}>Create Event</button>
                     <button className='EventButton' onClick={this.cancel}>Cancel</button>
